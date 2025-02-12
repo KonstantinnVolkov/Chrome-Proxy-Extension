@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WireGuard Proxy</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div id="mainScreen">
+        <header>
+            <h1>WireGuard Proxy</h1>
+        </header>
+
+        <section>
+            <h2>Управление VPN</h2>
+            <div class="switch-container">
+                <label for="vpnSwitch" class="switch">
+                    <input id="vpnSwitch" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <span class="switch-label">Включить/выключить VPN</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Загрузка конфигурации</h2>
+            <label for="fileInput" class="file-label">Загрузить конфигурацию</label>
+            <input type="file" id="fileInput" accept=".conf">
+            <button id="viewConfig" class="btn">Показать конфигурацию</button>
+        </section>
+
+        <section>
+            <h2>Исключения</h2>
+            <label for="bypassList">Введите IP и домены, исключаемые из VPN (по одному в строке):</label>
+            <textarea id="bypassList" rows="5" placeholder="Пример: 192.168.1.1&#10;example.com"></textarea>
+            <button id="saveBypassBtn" class="btn">Сохранить исключения</button>
+        </section>
+
+        <p id="statusMessage" aria-live="polite"></p>
+    </div>
+
+    <div id="configScreen" hidden>
+        <header>
+            <h1>Конфигурация WireGuard</h1>
+        </header>
+        <pre id="configContent"></pre>
+        <button id="backButton" class="btn back-button">Назад</button>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
