@@ -119,3 +119,62 @@ pre {
     color: #333;
     text-align: center;
 }
+
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный */
+  backdrop-filter: blur(10px); /* Размытие заднего фона */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  width: 100%;
+  color: white;
+  background: none;
+  border: none;
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  transition: background 0.2s;
+  justify-content: center;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding-top: 5px;
+  text-align: left;
+}
+
+.sidebar_list button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.sidebar_list button {
+  width: 100%;
+  color: white;
+  background: none;
+  border: none;
+  font-size: 16px;
+  padding: 10px;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  transition: background 0.2s;
+  justify-content: center;
+}
+
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 20px;
+}

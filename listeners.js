@@ -1,12 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const mainScreen = document.getElementById("mainScreen");
+
     const fileInput = document.getElementById("fileInput");
     const viewConfigBtn = document.getElementById("viewConfig");
     const backButton = document.getElementById("backButton");
     const configContent = document.getElementById("configContent");
-    const mainScreen = document.getElementById("mainScreen");
     const configScreen = document.getElementById("configScreen");
+
     const saveBypassBtn = document.getElementById("saveBypassBtn");
     const vpnSwitch = document.getElementById('vpnSwitch');  
+
+    const sidebar = document.getElementById("sidebar");
+    const openSidebarBtn = document.getElementById("openSidebar");
+    const closeSidebarBtn = document.getElementById("closeSidebar");
+    const configScreenBtn = document.getElementById('viewConfigBtn');
+    const bypassScreenBtn = document.getElementById('bypassScreenBtn');
+
     
     window.onload = () => {
         // Проверяем состояние прокси при загрузке popup
@@ -15,11 +24,23 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     };
 
+    // Функция показа бокового меню
+    openSidebarBtn.addEventListener("click", () => {
+        sidebar.style.width = "100%";
+        document.getElementById("main").style.marginLeft = "250px";
+    });
+
+    // Функция скрытия бокового меню
+    closeSidebarBtn.addEventListener("click", () => {
+        sidebar.style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    });
+
     vpnSwitch.addEventListener("change", () => {
         if (vpnSwitch.checked) {
             chrome.storage.local.get("wireguardConfig", (data) => {
                 if (data.wireguardConfig) {
-                    const parsedConfig = parseConfig(data.wireguardConfig);
+                    const parsedConfig = window.parseConfig(data.wireguardConfig);
                     chrome.runtime.sendMessage({ action: "enableVpn", config: parsedConfig });
                 } else {
                     alert("Конфигурация WireGuard не загружена!");
@@ -31,25 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Функция парсинга конфигурационного файла WireGuard
-    function parseConfig(configText) {
-        const config = {};
-        const lines = configText.split("\n");
-        
-        let currentSection = null;
-
-        lines.forEach(line => {
-            line = line.trim();
-            if (line.startsWith("[") && line.endsWith("]")) {
-                currentSection = line.slice(1, -1);
-                config[currentSection] = {};
-            } else if (currentSection && line.includes("=")) {
-                const [key, value] = line.split("=").map(s => s.trim());
-                config[currentSection][key] = value;
-            }
-        });
-        return config;
-    };
     // Обработка загрузки файла
     fileInput.addEventListener("change", (event) => {
         const file = event.target.files[0];

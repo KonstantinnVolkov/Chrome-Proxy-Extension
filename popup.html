@@ -9,6 +9,7 @@
 <body>
     <div id="mainScreen">
         <header>
+            <button id="openSidebar" class="settings-btn">&#9776;</button>
             <h1>WireGuard Proxy</h1>
         </header>
 
@@ -22,6 +23,14 @@
                 <span class="switch-label">Включить/выключить VPN</span>
             </div>
         </section>
+
+        <div id="sidebar" class="sidebar">
+            <button id="closeSidebar" class="close-btn">&times;</button>
+            <ul id="sidebar_list" class="sidebar_list">
+                <li><button id="viewConfigBtn"><i class="fa-solid fa-file-lines"></i>Конфигурация</button></li>
+                <li><button id="bypassScreenBtn"><i class="fa-solid fa-ban"></i>Исключения</button></li>
+            </ul>
+        </div>        
 
         <section>
             <h2>Загрузка конфигурации</h2>
@@ -48,6 +57,7 @@
         <button id="backButton" class="btn back-button">Назад</button>
     </div>
 
-    <script src="popup.js"></script>
+    <script src="listeners.js"></script>
+    <script src="service.js"></script>
 </body>
 </html>
