@@ -3,7 +3,7 @@
     "name": "WireGuard VPN Extension",
     "version": "1.0",
     "description": "WireGuard browser client",
-    "permissions": ["storage", "proxy", "alarms"],
+    "permissions": ["storage", "proxy", "alarms", "webRequest"],
     "host_permissions": ["<all_urls>"],
     "background": {
       "service_worker": "background.js"

@@ -1,16 +1,16 @@
-// Слушаем команды от popup.js
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {    
     if (request.action === "enableVpn") {
-        let config = request.config;
+        const bypassList = request.bypassList;
+        const config = request.config;
         console.log("Parsed WireGuard Config:", config);
-        enableVPN(config);
+        enableVPN(config, bypassList);
     } else if (request.action === "disableVpn") {
         disableVPN();
     }
     sendResponse({ status: "ok" });
 });
 
-function enableVPN(config) {
+function enableVPN(config, bypassList) {
     if (!config["Peer"] || !config["Peer"]["Endpoint"]) {
         console.error("Ошибка: не найден Endpoint в конфигурации!");
         return;
@@ -18,7 +18,7 @@ function enableVPN(config) {
 
     // IP-адрес WireGuard-сервера (он же сервер Dante)
     let serverIP = config["Peer"]["Endpoint"].split(":")[0];
-    let dantePort = 1080;  // Порт Dante (проверь, какой у тебя настроен!)
+    let dantePort = 1081;  // Порт Dante (проверь, какой у тебя настроен!)
 
     console.log(`Настраиваем прокси на SOCKS5 через ${serverIP}:${dantePort}`);
 
@@ -30,17 +30,7 @@ function enableVPN(config) {
                 host: serverIP,
                 port: dantePort
             },
-            bypassList: [
-                "localhost", 
-                "127.0.0.1", 
-                "::1", 
-                "*.local", 
-                "10.0.0.0/8",
-                "172.16.0.0/12",
-                "192.168.0.0/16",
-                "cloud.digitalocean.com",
-                "git-cards.iba.by"
-            ]
+            bypassList: bypassList
         }
     };
     console.log(proxyConfig);

@@ -13,7 +13,16 @@
             <h1>WireGuard Proxy</h1>
         </header>
 
-        <section>
+        <div id="sidebar" class="sidebar">
+            <button id="closeSidebar" class="close-btn">&times;</button>
+            <ul id="sidebar_list" class="sidebar_list">
+                <li><button id="VPNScreenBtn"><i class="fa-solid fa-file-lines"></i>VPN</button></li>
+                <li><button id="configScreenBtn"><i class="fa-solid fa-file-lines"></i>Конфигурация</button></li>
+                <li><button id="bypassScreenBtn"><i class="fa-solid fa-ban"></i>Исключения</button></li>
+            </ul>
+        </div>  
+
+        <section id="vpnSection">
             <h2>Управление VPN</h2>
             <div class="switch-container">
                 <label for="vpnSwitch" class="switch">
@@ -22,39 +31,33 @@
                 </label>
                 <span class="switch-label">Включить/выключить VPN</span>
             </div>
-        </section>
+        </section>      
 
-        <div id="sidebar" class="sidebar">
-            <button id="closeSidebar" class="close-btn">&times;</button>
-            <ul id="sidebar_list" class="sidebar_list">
-                <li><button id="viewConfigBtn"><i class="fa-solid fa-file-lines"></i>Конфигурация</button></li>
-                <li><button id="bypassScreenBtn"><i class="fa-solid fa-ban"></i>Исключения</button></li>
-            </ul>
-        </div>        
-
-        <section>
-            <h2>Загрузка конфигурации</h2>
+        <section id="configSection">
+            <h2>Конфигурация</h2>
+            <pre id="configContent"></pre> 
             <label for="fileInput" class="file-label">Загрузить конфигурацию</label>
             <input type="file" id="fileInput" accept=".conf">
-            <button id="viewConfig" class="btn">Показать конфигурацию</button>
         </section>
 
-        <section>
+        <section id="excludesHostsSection">
             <h2>Исключения</h2>
-            <label for="bypassList">Введите IP и домены, исключаемые из VPN (по одному в строке):</label>
-            <textarea id="bypassList" rows="5" placeholder="Пример: 192.168.1.1&#10;example.com"></textarea>
-            <button id="saveBypassBtn" class="btn">Сохранить исключения</button>
+            <button id="addBypassBtn" class="btn">Добавить исключение</button>
+            <ul id="bypassList" class="bypass-list"></ul>
         </section>
+        
+        <!-- Popup для добавления исключения -->
+        <div id="bypassPopup" class="popup hidden">
+            <div class="popup-content">
+                <label for="bypassInput">Введите IP или домен:</label>
+                <input type="text" id="bypassInput" placeholder="example.com">
+                <button id="saveBypassBtn" class="btn">Сохранить</button>
+                <button id="closePopupBtn" class="btn">Закрыть</button>
+            </div>
+        </div>
+        
 
         <p id="statusMessage" aria-live="polite"></p>
-    </div>
-
-    <div id="configScreen" hidden>
-        <header>
-            <h1>Конфигурация WireGuard</h1>
-        </header>
-        <pre id="configContent"></pre>
-        <button id="backButton" class="btn back-button">Назад</button>
     </div>
 
     <script src="listeners.js"></script>

@@ -1,13 +1,17 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    width: 300px;
+    height: 900px;
+    width: 400px;
     padding: 20px;
     background-color: #f4f4f4;
-}
+    overflow: hidden;
+} 
+
 h2 {
     color: #333;
 }
+
 button {
     display: block;
     width: 100%;
@@ -18,9 +22,11 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
 #fileInput {
     display: none;
 }
+
 .file-label {
     background-color: #007bff;
     color: white;
@@ -28,14 +34,18 @@ button {
     border-radius: 5px;
     display: inline-block;
     cursor: pointer;
+    font-size: 14px;
 }
+
 #configScreen {
     display: none;
 }
+
 .back-button {
     background-color: #ffc107;
     color: black;
 }
+
 pre {
     text-align: left;
     background: #eaeaea;
@@ -52,6 +62,11 @@ pre {
   gap: 8px; /* Расстояние между переключателем и текстом */
 }
 
+#configContent {
+  font-family: "courier new", courier, monospace;
+  font-size: 12px;
+  margin-bottom: 50px;
+}
 
 /* The switch - the box around the slider */
 .switch {
@@ -59,17 +74,17 @@ pre {
     display: inline-block;
     width: 60px;
     height: 34px;
-  }
+}
   
-  /* Hide default HTML checkbox */
-  .switch input {
+/* Hide default HTML checkbox */
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  /* The slider */
-  .slider {
+}
+
+/* The slider */
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -79,9 +94,9 @@ pre {
     background-color: #ccc;
     transition: .4s;
     border-radius: 34px;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 26px;
@@ -91,28 +106,28 @@ pre {
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    transform: translateX(26px);
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
   
-  /* Rounded sliders */
-  .slider.round {
+/* Rounded sliders */
+.slider.round {
     border-radius: 34px;
-  }
-  
-  .slider.round:before {
+}
+
+.slider.round:before {
     border-radius: 50%;
-  }
+}
 
   .switch-label {
     font-size: 14px;
@@ -124,6 +139,7 @@ pre {
   height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
+  z-index: 1;
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный */
@@ -177,4 +193,48 @@ pre {
 #main {
   transition: margin-left .5s; /* If you want a transition effect */
   padding: 20px;
+}
+
+.bypass-list {
+  list-style: none;
+  padding: 0;
+}
+
+.bypass-list li {
+  background: #333;
+  color: white;
+  padding: 8px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 5px 10px;
 }
