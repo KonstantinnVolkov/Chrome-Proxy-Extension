@@ -122,23 +122,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderBypassList() {
         bypassListEl.innerHTML = "";
-        
+    
         bypassList.forEach((host, index) => {
             const li = document.createElement("li");
             li.textContent = host;
-
+            li.classList.add("bypass-item");
+    
             const removeBtn = document.createElement("button");
-            removeBtn.textContent = "Удалить";
-            removeBtn.classList.add("btn");
+            removeBtn.textContent = "×";
+            removeBtn.classList.add("btn", "remove-btn");
             removeBtn.onclick = () => {
                 bypassList.splice(index, 1);
                 saveBypassList();
             };
-
+    
             li.appendChild(removeBtn);
             bypassListEl.appendChild(li);
         });
     }
+    
 
     function saveBypassList() {
         chrome.storage.local.set({ bypassList }, () => {
@@ -147,11 +149,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     addBypassBtn.addEventListener("click", () => {
-        bypassPopup.classList.remove("hidden");
+        bypassPopup.style.display = "block";
     });
 
     closePopupBtn.addEventListener("click", () => {
-        bypassPopup.classList.add("hidden");
+        bypassPopup.style.display = "none";
     });
 
     saveBypassBtn.addEventListener("click", () => {
@@ -162,6 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
             bypassPopup.classList.add("hidden");
             saveBypassList();
         }
+        bypassPopup.style.display = "none";
     });
 
     chrome.storage.local.get("bypassList", (data) => {

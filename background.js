@@ -1,3 +1,7 @@
+const proxyMode = 'fixed_servers';
+const proxyScheme = 'socks5';
+const proxyPort = 1082;
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {    
     if (request.action === "enableVpn") {
         const bypassList = request.bypassList;
@@ -16,19 +20,16 @@ function enableVPN(config, bypassList) {
         return;
     }
 
-    // IP-адрес WireGuard-сервера (он же сервер Dante)
-    let serverIP = config["Peer"]["Endpoint"].split(":")[0];
-    let dantePort = 1081;  // Порт Dante (проверь, какой у тебя настроен!)
-
-    console.log(`Настраиваем прокси на SOCKS5 через ${serverIP}:${dantePort}`);
+    let proxyIP = config["Peer"]["Endpoint"].split(":")[0];
+    console.log(`Настраиваем прокси на SOCKS5 через ${proxyIP}:${proxyPort}`);
 
     let proxyConfig = {
-        mode: "fixed_servers",
+        mode: proxyMode,
         rules: {
             singleProxy: {
-                scheme: "socks5",
-                host: serverIP,
-                port: dantePort
+                scheme: proxyScheme,
+                host: proxyIP,
+                port: proxyPort
             },
             bypassList: bypassList
         }
@@ -42,7 +43,6 @@ function enableVPN(config, bypassList) {
     });
 }
 
-// Функция для отключения VPN
 function disableVPN() {
     chrome.proxy.settings.clear({ scope: "regular" }, () => {
         console.log("VPN выключен");
